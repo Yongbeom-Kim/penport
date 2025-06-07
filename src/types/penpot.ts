@@ -6,7 +6,7 @@ export const TypographySchema = z.object({
   fontStyle: z.string(),
   textTransform: z.enum(["none", "uppercase", "capitalize"]),
   fontId: z.string(),
-  fontSize: z.string(),
+  fontSize: z.number(),
   fontWeight: z.string(),
   name: z.string(),
   modifiedAt: z.string(),

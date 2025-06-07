@@ -6,10 +6,11 @@ export const parseTypographyData = (data: string): Typography => {
     const typographyData = JSON.parse(data);
     typographyData.lineHeight = Number.parseFloat(String(typographyData.lineHeight));
     typographyData.letterSpacing = Number.parseFloat(String(typographyData.letterSpacing));
+    typographyData.fontSize = Number.parseFloat(String(typographyData.fontSize));
     const typography = TypographySchema.parse(typographyData);
     return typography;
-  } catch (error) {
-    throw new UnrecoverableError(`Failed to parse typography data: ${error.message}`);
+  } catch (error: unknown) {
+    throw new UnrecoverableError(`Failed to parse typography data: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 
@@ -18,7 +19,7 @@ export const parseColorData = (data: string): Color => {
     const colorData = JSON.parse(data);
     const color = ColorSchema.parse(colorData);
     return color;
-  } catch (error) {
-    throw new UnrecoverableError(`Failed to parse color data: ${error.message}`);
+  } catch (error: unknown) {
+    throw new UnrecoverableError(`Failed to parse color data: ${error instanceof Error ? error.message : String(error)}`);
   }
 }

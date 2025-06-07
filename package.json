@@ -8,7 +8,8 @@
     "test:watch": "jest --watch",
     "build": "esbuild src/index.ts --bundle --platform=node --outfile=index.js",
     "dev": "esbuild src/index.ts --bundle --platform=node --outfile=index.js --watch",
-    "export": "node index.js export"
+    "export": "node index.js export",
+    "check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",

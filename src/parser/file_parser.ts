@@ -1,5 +1,5 @@
 import { PathLike, readFileSync } from "node:fs";
-import * as AdmZip from "adm-zip";
+import AdmZip from "adm-zip";
 import { UnrecoverableError } from "../types/errors";
 
 export const unzipPenpotFile = (file: PathLike | Buffer): AdmZip => {

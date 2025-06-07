@@ -1,0 +1,5 @@
+- Allow import via API
+- "Source Sans Pro" font resolves to "sourcesanspro"
+- See this file: https://github.com/penpot/penpot/blob/develop/frontend/resources/fonts/gfonts.2025.05.19.json
+  - Can resolve the font type
+  - Can resolve "sourcesanspro" issue
