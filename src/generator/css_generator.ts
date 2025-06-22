@@ -1,4 +1,4 @@
-import { AssertionError } from "../types/errors";
+import { getColorCssName, getColorValue, sanitizeCssIdentifier } from "./utils";
 import { CSSClass, CSSDeclaration, CSSDeclarationBlock, CSSVariable, EmptyCSSDeclaration, PureCSSGeneratorOptions, OutputFile, RootCSSDeclarationBlock } from "../types/generator";
 import { Color, Typography } from "../types/penpot";
 
@@ -18,19 +18,7 @@ export const pureCssGenerator = (theme: { typographies: Typography[], colors: Co
   return files;
 };
 
-const getCssName = (...fullPath: string[]) => {
-  if (fullPath.length === 0) {
-    throw new AssertionError("Cannot get CSS name, fullPath is required and cannot be empty");
-  }
-  return fullPath
-    .filter(path => path !== undefined && path !== null && path !== "")
-    .join("_")
-    .toLowerCase()
-    .replaceAll("/", "_")
-    .replaceAll(" ", "-")
-    .replaceAll(".", "_")
-    .replaceAll(/[^a-z0-9_-]/g, "");
-}
+export const getCssName = sanitizeCssIdentifier;
 
 const generateCssTypography = (typographies: Typography[], options: PureCSSGeneratorOptions): CSSDeclarationBlock[] => {
   const uniqueFontFamilies = [...new Set(typographies.map((typography) => typography.fontFamily))];
@@ -54,7 +42,7 @@ const generateCssTypography = (typographies: Typography[], options: PureCSSGener
   ]));
 
   for (const typography of typographies) {
-    const className = getCssName(typography.path ?? "", typography.name);
+    const className = `text-${getCssName(typography.path ?? "", typography.name)}`;
     
     cssBlocks.push(new CSSClass(className, [
       new CSSDeclaration("font-family", `var(${fontFamilyCssVariables[typography.fontFamily]!.name})`),
@@ -75,14 +63,9 @@ const generateCssColors = (colors: Color[]): CSSDeclarationBlock[] => {
 
   cssBlocks.push(new RootCSSDeclarationBlock(
     colors.map((color) => {
-      let cssVariableName = getCssName(color.path ?? "", color.name);
-      if (cssVariableName.length === 0) {
-        throw new AssertionError(`Cannot generate CSS variable name, color: ${color}`);
-      }
-      if (!(/^[a-z]/.test(cssVariableName))) {
-        cssVariableName = `color-${cssVariableName}`;
-      }
-      return new CSSVariable(cssVariableName, color.color);
+      const cssVariableName = getColorCssName(color);
+      const colorValue = getColorValue(color);
+      return new CSSVariable(cssVariableName, colorValue);
     })
   ));
 

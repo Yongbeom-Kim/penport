@@ -5,7 +5,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   {
     "contents": ":root {
   --cy_tailwind-cyan-50: #ecfeff; 
-  --id_tailwind-indigo-500-a-50: #6366f1; 
+  --id_tailwind-indigo-500-a-50: rgba(99, 102, 241, 0.5); 
   --color-1e2932: #1e2932; 
   
   /* Add your own fallback fonts here: */
@@ -13,7 +13,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   --font-family-stalemate: "Stalemate", sans-serif; 
 }
 
-.ssp_source-sans-3-14-regular {
+.text-ssp_source-sans-3-14-regular {
   font-family: var(--font-family-source-sans-3); 
   font-size: 0.875rem; 
   font-style: normal; 
@@ -23,7 +23,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   text-transform: none; 
 }
 
-.ssp_source-sans-3-bolditalic {
+.text-ssp_source-sans-3-bolditalic {
   font-family: var(--font-family-source-sans-3); 
   font-size: 1.125rem; 
   font-style: normal; 
@@ -33,7 +33,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   text-transform: none; 
 }
 
-.ssp_source-sans-3-200 {
+.text-ssp_source-sans-3-200 {
   font-family: var(--font-family-source-sans-3); 
   font-size: 0.625rem; 
   font-style: normal; 
@@ -43,7 +43,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   text-transform: none; 
 }
 
-.st_stalemate-regular {
+.text-st_stalemate-regular {
   font-family: var(--font-family-stalemate); 
   font-size: 0.625rem; 
   font-style: normal; 
@@ -53,7 +53,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   text-transform: capitalize; 
 }
 
-.st_stalemate-regular-24-line-spacing {
+.text-st_stalemate-regular-24-line-spacing {
   font-family: var(--font-family-stalemate); 
   font-size: 1.5rem; 
   font-style: normal; 
@@ -63,7 +63,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   text-transform: none; 
 }
 
-.st_stalemate-regular-all-caps-24 {
+.text-st_stalemate-regular-all-caps-24 {
   font-family: var(--font-family-stalemate); 
   font-size: 2.6875rem; 
   font-style: normal; 
@@ -73,7 +73,7 @@ exports[`Integration Tests API to CSS should fetch from API and generate pure CS
   text-transform: uppercase; 
 }
 
-.no-group {
+.text-no-group {
   font-family: var(--font-family-source-sans-3); 
   font-size: 0.875rem; 
   font-style: normal; 
@@ -93,9 +93,13 @@ exports[`Integration Tests API to Tailwind should fetch from API and generate co
   theme: {
     extend: {
       colors: {
-    "tailwind-cyan-50": "#ecfeff",
-    "tailwind-indigo-500 a-50": "rgba(99, 102, 241, 0.5)",
-    "#1e2932": "#1e2932"
+"cy_tailwind-cyan-50": "#ecfeff",
+"id_tailwind-indigo-500-a-50": "rgba(99, 102, 241, 0.5)",
+"color-1e2932": "#1e2932"
+      },
+      fontFamily: {
+"source-sans-3": ["Source Sans 3", "sans-serif"],
+"stalemate": ["Stalemate", "sans-serif"]
       }
     }
   }
@@ -104,32 +108,32 @@ exports[`Integration Tests API to Tailwind should fetch from API and generate co
 @tailwind components;
 @tailwind utilities;
 
-.text-source sans 3 14 regular {
-  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-ssp_source-sans-3-14-regular {
+  @apply text-[0.875rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }
 
-.text-Source Sans 3 Bolditalic {
-  @apply text-[1.125rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-ssp_source-sans-3-bolditalic {
+  @apply text-[1.125rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }
 
-.text-Source Sans 3 200 {
-  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-ssp_source-sans-3-200 {
+  @apply text-[0.625rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }
 
-.text-Stalemate Regular {
-  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-st_stalemate-regular {
+  @apply text-[0.625rem] leading-[1.2] font-normal tracking-[0em] font-stalemate capitalize;
 }
 
-.text-Stalemate Regular 24 line spacing {
-  @apply text-[1.5rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-st_stalemate-regular-24-line-spacing {
+  @apply text-[1.5rem] leading-[1.2] font-normal tracking-[0em] font-stalemate;
 }
 
-.text-Stalemate Regular all caps 24 {
-  @apply text-[2.6875rem] leading-[0.1875rem] font-normal tracking-[0.05581395348837209em] font-sans;
+.text-st_stalemate-regular-all-caps-24 {
+  @apply text-[2.6875rem] leading-[3] font-normal tracking-[0.0558em] font-stalemate uppercase;
 }
 
 .text-no-group {
-  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+  @apply text-[0.875rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }",
   "metadata": {
     "colorCount": 3,
@@ -144,7 +148,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   {
     "contents": ":root {
   --cy_tailwind-cyan-50: #ecfeff; 
-  --id_tailwind-indigo-500-a-50: #6366f1; 
+  --id_tailwind-indigo-500-a-50: rgba(99, 102, 241, 0.5); 
   --color-1e2932: #1e2932; 
   
   /* Add your own fallback fonts here: */
@@ -152,7 +156,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   --font-family-stalemate: "Stalemate", sans-serif; 
 }
 
-.ssp_source-sans-3-14-regular {
+.text-ssp_source-sans-3-14-regular {
   font-family: var(--font-family-source-sans-3); 
   font-size: 0.875rem; 
   font-style: normal; 
@@ -162,7 +166,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   text-transform: none; 
 }
 
-.ssp_source-sans-3-bolditalic {
+.text-ssp_source-sans-3-bolditalic {
   font-family: var(--font-family-source-sans-3); 
   font-size: 1.125rem; 
   font-style: normal; 
@@ -172,7 +176,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   text-transform: none; 
 }
 
-.ssp_source-sans-3-200 {
+.text-ssp_source-sans-3-200 {
   font-family: var(--font-family-source-sans-3); 
   font-size: 0.625rem; 
   font-style: normal; 
@@ -182,7 +186,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   text-transform: none; 
 }
 
-.st_stalemate-regular {
+.text-st_stalemate-regular {
   font-family: var(--font-family-stalemate); 
   font-size: 0.625rem; 
   font-style: normal; 
@@ -192,7 +196,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   text-transform: capitalize; 
 }
 
-.st_stalemate-regular-24-line-spacing {
+.text-st_stalemate-regular-24-line-spacing {
   font-family: var(--font-family-stalemate); 
   font-size: 1.5rem; 
   font-style: normal; 
@@ -202,7 +206,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   text-transform: none; 
 }
 
-.st_stalemate-regular-all-caps-24 {
+.text-st_stalemate-regular-all-caps-24 {
   font-family: var(--font-family-stalemate); 
   font-size: 2.6875rem; 
   font-style: normal; 
@@ -212,7 +216,7 @@ exports[`Integration Tests File to CSS should parse penpot file and generate pur
   text-transform: uppercase; 
 }
 
-.no-group {
+.text-no-group {
   font-family: var(--font-family-source-sans-3); 
   font-size: 0.875rem; 
   font-style: normal; 
@@ -232,9 +236,13 @@ exports[`Integration Tests File to Tailwind should parse penpot file and generat
   theme: {
     extend: {
       colors: {
-    "tailwind-cyan-50": "#ecfeff",
-    "tailwind-indigo-500 a-50": "rgba(99, 102, 241, 0.5)",
-    "#1e2932": "#1e2932"
+"cy_tailwind-cyan-50": "#ecfeff",
+"id_tailwind-indigo-500-a-50": "rgba(99, 102, 241, 0.5)",
+"color-1e2932": "#1e2932"
+      },
+      fontFamily: {
+"source-sans-3": ["Source Sans 3", "sans-serif"],
+"stalemate": ["Stalemate", "sans-serif"]
       }
     }
   }
@@ -243,32 +251,32 @@ exports[`Integration Tests File to Tailwind should parse penpot file and generat
 @tailwind components;
 @tailwind utilities;
 
-.text-source sans 3 14 regular {
-  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-ssp_source-sans-3-14-regular {
+  @apply text-[0.875rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }
 
-.text-Source Sans 3 Bolditalic {
-  @apply text-[1.125rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-ssp_source-sans-3-bolditalic {
+  @apply text-[1.125rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }
 
-.text-Source Sans 3 200 {
-  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-ssp_source-sans-3-200 {
+  @apply text-[0.625rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }
 
-.text-Stalemate Regular {
-  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-st_stalemate-regular {
+  @apply text-[0.625rem] leading-[1.2] font-normal tracking-[0em] font-stalemate capitalize;
 }
 
-.text-Stalemate Regular 24 line spacing {
-  @apply text-[1.5rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+.text-st_stalemate-regular-24-line-spacing {
+  @apply text-[1.5rem] leading-[1.2] font-normal tracking-[0em] font-stalemate;
 }
 
-.text-Stalemate Regular all caps 24 {
-  @apply text-[2.6875rem] leading-[0.1875rem] font-normal tracking-[0.05581395348837209em] font-sans;
+.text-st_stalemate-regular-all-caps-24 {
+  @apply text-[2.6875rem] leading-[3] font-normal tracking-[0.0558em] font-stalemate uppercase;
 }
 
 .text-no-group {
-  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+  @apply text-[0.875rem] leading-[1.2] font-normal tracking-[0em] font-source-sans-3;
 }",
   "metadata": {
     "colorCount": 3,
