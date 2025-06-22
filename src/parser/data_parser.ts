@@ -4,9 +4,16 @@ import { Color, ColorSchema, TypographySchema, Typography } from "../types/penpo
 export const parseTypographyData = (data: string): Typography => {
   try {
     const typographyData = JSON.parse(data);
-    typographyData.lineHeight = Number.parseFloat(String(typographyData.lineHeight));
-    typographyData.letterSpacing = Number.parseFloat(String(typographyData.letterSpacing));
-    typographyData.fontSize = Number.parseFloat(String(typographyData.fontSize));
+    // Convert string fields to numbers if they're still strings (for backward compatibility)
+    if (typeof typographyData.lineHeight === 'string') {
+      typographyData.lineHeight = Number.parseFloat(typographyData.lineHeight);
+    }
+    if (typeof typographyData.letterSpacing === 'string') {
+      typographyData.letterSpacing = Number.parseFloat(typographyData.letterSpacing);
+    }
+    if (typeof typographyData.fontSize === 'string') {
+      typographyData.fontSize = Number.parseFloat(typographyData.fontSize);
+    }
     const typography = TypographySchema.parse(typographyData);
     return typography;
   } catch (error: unknown) {
