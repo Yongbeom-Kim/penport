@@ -1,11 +1,13 @@
 import { AssertionError } from "../types/errors";
-import { getCssName } from "./css_generator";
 import {
   getColorCssName,
   getColorValue,
   pxToRem,
   mapFontWeight,
-  sanitizeCssIdentifier,
+  getTypographyCssName,
+  sanitizeFontFamilyName,
+  formatLetterSpacing,
+  mapTextTransform,
 } from "./utils";
 import { OutputFile, TailwindGeneratorOptions } from "../types/generator";
 import { Color, Typography } from "../types/penpot";
@@ -94,7 +96,7 @@ function generateTailwindTypography(typographies: Typography[]): string {
     );
     const fontFamily = mapCustomFontFamily(typography.fontFamily);
     const textTransform = mapTextTransform(typography.textTransform);
-    const sanitizedName = getCssName(typography.path ?? "", typography.name);
+    const sanitizedName = getTypographyCssName(typography.path ?? "", typography.name);
 
     const applyClasses = [
       `text-[${fontSize}rem]`,
@@ -119,28 +121,10 @@ function generateTailwindTypography(typographies: Typography[]): string {
 ${utilityClasses.join("\n\n")}`;
 }
 
-// Helper functions
-function sanitizeFontFamilyName(fontFamily: string): string {
-  return sanitizeCssIdentifier(fontFamily);
-}
 
 function mapCustomFontFamily(fontFamily: string): string {
   const sanitizedName = sanitizeFontFamilyName(fontFamily);
   return `font-${sanitizedName}`;
 }
 
-function mapTextTransform(textTransform: string): string {
-  const transformMap: Record<string, string> = {
-    none: "",
-    capitalize: "capitalize",
-    uppercase: "uppercase",
-    lowercase: "lowercase",
-  };
 
-  return transformMap[textTransform] || "";
-}
-
-function formatLetterSpacing(spacing: number): string {
-  // Round to 4 decimal places to avoid overly long decimals
-  return spacing.toFixed(4).replace(/\.?0+$/, "");
-}

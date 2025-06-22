@@ -1,4 +1,4 @@
-import { getColorCssName, getColorValue, sanitizeCssIdentifier } from "./utils";
+import { getColorCssName, getColorValue, getTypographyCssName, getFontFamilyCssVariableName } from "./utils";
 import { CSSClass, CSSDeclaration, CSSDeclarationBlock, CSSVariable, EmptyCSSDeclaration, PureCSSGeneratorOptions, OutputFile, RootCSSDeclarationBlock } from "../types/generator";
 import { Color, Typography } from "../types/penpot";
 
@@ -18,7 +18,6 @@ export const pureCssGenerator = (theme: { typographies: Typography[], colors: Co
   return files;
 };
 
-export const getCssName = sanitizeCssIdentifier;
 
 const generateCssTypography = (typographies: Typography[], options: PureCSSGeneratorOptions): CSSDeclarationBlock[] => {
   const uniqueFontFamilies = [...new Set(typographies.map((typography) => typography.fontFamily))];
@@ -28,7 +27,7 @@ const generateCssTypography = (typographies: Typography[], options: PureCSSGener
   const fontFamilyCssVariables: Record<string, CSSVariable> = {};
 
   uniqueFontFamilies.forEach((fontFamily) => {
-    const cssVariableName = `font-family-${fontFamily.trim().replaceAll(/\s+/g, "-").toLowerCase()}`;
+    const cssVariableName = getFontFamilyCssVariableName(fontFamily);
     if (options.typography.fallbackToSansSerif) {
       fontFamilyCssVariables[fontFamily] = new CSSVariable(cssVariableName, `"${fontFamily}", sans-serif`);
     } else {
@@ -42,7 +41,7 @@ const generateCssTypography = (typographies: Typography[], options: PureCSSGener
   ]));
 
   for (const typography of typographies) {
-    const className = `text-${getCssName(typography.path ?? "", typography.name)}`;
+    const className = `text-${getTypographyCssName(typography.path ?? "", typography.name)}`;
     
     cssBlocks.push(new CSSClass(className, [
       new CSSDeclaration("font-family", `var(${fontFamilyCssVariables[typography.fontFamily]!.name})`),

@@ -1,9 +1,6 @@
 import { AssertionError } from "../types/errors";
 import { Color } from "../types/penpot";
 
-/**
- * Sanitizes a CSS identifier by converting it to a valid CSS class/variable name
- */
 export const sanitizeCssIdentifier = (...fullPath: string[]) => {
   if (fullPath.length === 0) {
     throw new AssertionError("Cannot get CSS name, fullPath is required and cannot be empty");
@@ -18,10 +15,6 @@ export const sanitizeCssIdentifier = (...fullPath: string[]) => {
     .replaceAll(/[^a-z0-9_-]/g, "");
 }
 
-/**
- * Generates a CSS variable name from a color's path and name
- * Uses the robust naming logic from generateCssColors
- */
 export const getColorCssName = (color: Color): string => {
   let cssVariableName = sanitizeCssIdentifier(color.path ?? "", color.name);
   
@@ -29,7 +22,6 @@ export const getColorCssName = (color: Color): string => {
     throw new AssertionError(`Cannot generate CSS variable name for color: ${color.name}`);
   }
   
-  // Add color- prefix if name doesn't start with a letter
   if (!/^[a-z]/.test(cssVariableName)) {
     cssVariableName = `color-${cssVariableName}`;
   }
@@ -37,10 +29,6 @@ export const getColorCssName = (color: Color): string => {
   return cssVariableName;
 };
 
-/**
- * Generates a CSS color value from a color object
- * Uses the robust color value logic from generateTailwindConfig
- */
 export const getColorValue = (color: Color): string => {
   if (color.opacity === 1) {
     return color.color;
@@ -50,9 +38,6 @@ export const getColorValue = (color: Color): string => {
   }
 };
 
-/**
- * Converts hex color to RGB values
- */
 export const hexToRgb = (hex: string): string => {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
@@ -60,16 +45,10 @@ export const hexToRgb = (hex: string): string => {
   return `${r}, ${g}, ${b}`;
 };
 
-/**
- * Converts pixels to rem units (assuming 16px base font size)
- */
 export const pxToRem = (px: number): number => {
   return px / 16;
 };
 
-/**
- * Maps font weight values to Tailwind CSS font weight classes
- */
 export const mapFontWeight = (weight: string): string => {
   const weightMap: Record<string, string> = {
     "100": "font-thin",
@@ -86,11 +65,7 @@ export const mapFontWeight = (weight: string): string => {
   return weightMap[weight] || "font-normal";
 };
 
-/**
- * Maps font family names to Tailwind CSS font family classes
- */
 export const mapFontFamily = (family: string): string => {
-  // Default to font-sans for common sans-serif fonts
   const sansSerifFonts = ["Inter", "Arial", "Helvetica", "sans-serif"];
   const serifFonts = ["Times", "Georgia", "serif"];
   const monoFonts = ["Monaco", "Consolas", "monospace"];
@@ -105,5 +80,32 @@ export const mapFontFamily = (family: string): string => {
     return "font-mono";
   }
   
-  return "font-sans"; // Default fallback
+  return "font-sans";
+};
+
+export const getTypographyCssName = (path: string, name: string): string => {
+  return sanitizeCssIdentifier(path ?? "", name);
+};
+
+export const sanitizeFontFamilyName = (fontFamily: string): string => {
+  return sanitizeCssIdentifier(fontFamily);
+};
+
+export const formatLetterSpacing = (spacing: number): string => {
+  return spacing.toFixed(4).replace(/\.?0+$/, "");
+};
+
+export const mapTextTransform = (textTransform: string): string => {
+  const transformMap: Record<string, string> = {
+    none: "",
+    capitalize: "capitalize",
+    uppercase: "uppercase",
+    lowercase: "lowercase",
+  };
+
+  return transformMap[textTransform] || "";
+};
+
+export const getFontFamilyCssVariableName = (fontFamily: string): string => {
+  return `font-family-${fontFamily.trim().replaceAll(/\s+/g, "-").toLowerCase()}`;
 };
