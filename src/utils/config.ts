@@ -46,4 +46,4 @@ export const validateEnvironment = () => {
   // These will throw if not properly configured
   getAccessToken();
   getProjectId();
-};
+};  
