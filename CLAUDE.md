@@ -36,3 +36,8 @@ A tool to export themes from Penpot design files (.penpot files) and generate CS
 
 ## IMPORTANT: Testing Requirements
 After every unit of change, we must ensure that `pnpm test` and `pnpm run check` passes.
+
+## Git Commit Guidelines
+- Use one-line commit messages only
+- Keep commit messages concise and descriptive
+- ENTIRE commit message must be ONE LINE!
