@@ -2,20 +2,7 @@ import { parsePenpotFile } from "../../src/parser";
 import { generator } from "../../src/generator/generator";
 import { getFile } from "../../src/api/request";
 import { TailwindGeneratorOptions } from "../../src/types/generator";
-import dotenv from 'dotenv';
-
-dotenv.config({
-  path: '.penpot-secret'
-});
-
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
-      ACCESS_TOKEN: string;
-      PROJECT_ID: string;
-    }
-  }
-}
+import { getAccessToken, getProjectId, validateEnvironment } from '../../src/utils/config';
 
 describe("Integration Tests", () => {
   const defaultTailwindOptions: TailwindGeneratorOptions = {
@@ -90,16 +77,11 @@ describe("Integration Tests", () => {
 
   describe("API to Tailwind", () => {
     beforeAll(() => {
-      if (!process.env.ACCESS_TOKEN) {
-        throw new Error('ACCESS_TOKEN is not set - add it to .penpot-secret file');
-      }
-      if (!process.env.PROJECT_ID) {
-        throw new Error('PROJECT_ID is not set - add it to .penpot-secret file');
-      }
+      validateEnvironment();
     });
 
     it("should fetch from API and generate complete tailwind output", async () => {
-      const penpotFile = await getFile(process.env.PROJECT_ID, process.env.ACCESS_TOKEN);
+      const penpotFile = await getFile(getProjectId(), getAccessToken());
       
       // Convert API response to the format expected by generator
       const typographies = Object.values(penpotFile.data.typographies);
@@ -130,26 +112,21 @@ describe("Integration Tests", () => {
     });
 
     it("should handle API errors gracefully", async () => {
-      await expect(getFile('invalid-project-id', process.env.ACCESS_TOKEN))
+      await expect(getFile('invalid-project-id', getAccessToken()))
         .rejects.toThrow();
       
-      await expect(getFile(process.env.PROJECT_ID, 'invalid-token'))
+      await expect(getFile(getProjectId(), 'invalid-token'))
         .rejects.toThrow();
     });
   });
 
   describe("API to CSS", () => {
     beforeAll(() => {
-      if (!process.env.ACCESS_TOKEN) {
-        throw new Error('ACCESS_TOKEN is not set - add it to .penpot-secret file');
-      }
-      if (!process.env.PROJECT_ID) {
-        throw new Error('PROJECT_ID is not set - add it to .penpot-secret file');
-      }
+      validateEnvironment();
     });
 
     it("should fetch from API and generate pure CSS output", async () => {
-      const file = await getFile(process.env.PROJECT_ID, process.env.ACCESS_TOKEN);
+      const file = await getFile(getProjectId(), getAccessToken());
       const generatedFiles = generator(
         { 
           typographies: Object.values(file.data.typographies), 
