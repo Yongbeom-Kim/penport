@@ -1,5 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`generate Code from Penpot API should generate code from penpot api 1`] = `
+[
+  {
+    "contents": ":root {
+  --cy_tailwind-cyan-50: #ecfeff; 
+  --id_tailwind-indigo-500-a-50: #6366f1; 
+  --color-1e2932: #1e2932; 
+  
+  /* Add your own fallback fonts here: */
+  --font-family-source-sans-3: "Source Sans 3", sans-serif; 
+  --font-family-stalemate: "Stalemate", sans-serif; 
+}
+
+.ssp_source-sans-3-14-regular {
+  font-family: var(--font-family-source-sans-3); 
+  font-size: 0.875rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 1.2; 
+  letter-spacing: 0em; 
+  text-transform: none; 
+}
+
+.ssp_source-sans-3-bolditalic {
+  font-family: var(--font-family-source-sans-3); 
+  font-size: 1.125rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 1.2; 
+  letter-spacing: 0em; 
+  text-transform: none; 
+}
+
+.ssp_source-sans-3-200 {
+  font-family: var(--font-family-source-sans-3); 
+  font-size: 0.625rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 1.2; 
+  letter-spacing: 0em; 
+  text-transform: none; 
+}
+
+.st_stalemate-regular {
+  font-family: var(--font-family-stalemate); 
+  font-size: 0.625rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 1.2; 
+  letter-spacing: 0em; 
+  text-transform: capitalize; 
+}
+
+.st_stalemate-regular-24-line-spacing {
+  font-family: var(--font-family-stalemate); 
+  font-size: 1.5rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 1.2; 
+  letter-spacing: 0em; 
+  text-transform: none; 
+}
+
+.st_stalemate-regular-all-caps-24 {
+  font-family: var(--font-family-stalemate); 
+  font-size: 2.6875rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 3; 
+  letter-spacing: 0.0558em; 
+  text-transform: uppercase; 
+}
+
+.no-group {
+  font-family: var(--font-family-source-sans-3); 
+  font-size: 0.875rem; 
+  font-style: normal; 
+  font-weight: 400; 
+  line-height: 1.2; 
+  letter-spacing: 0em; 
+  text-transform: none; 
+}",
+    "path": "test/output.css",
+  },
+]
+`;
+
 exports[`parse Base Test Case penpot file should unzip a penpot file 1`] = `
 [
   {
@@ -82,7 +169,7 @@ exports[`parse Base Test Case penpot file should unzip a penpot file 1`] = `
   letter-spacing: 0em; 
   text-transform: none; 
 }",
-    "path": "src/output.css",
+    "path": "test/output.css",
   },
 ]
 `;
