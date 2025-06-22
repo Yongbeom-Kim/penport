@@ -1,4 +1,4 @@
-import { getProject } from "../../src/api/request";
+import { getFile } from "../../src/api/request";
 import dotenv from 'dotenv';
 
 dotenv.config({
@@ -20,17 +20,13 @@ if (!process.env.ACCESS_TOKEN) {
 }
 
 it('should get project', async () => {
-  await getProject(PROJECT_ID, process.env.ACCESS_TOKEN);
+  await getFile(PROJECT_ID, process.env.ACCESS_TOKEN);
 });
 
 it('project not found', async () => {
-  expect(async () => {
-    await getProject('123', process.env.ACCESS_TOKEN);
-  }).not.toThrow();
+  await expect(getFile('123', process.env.ACCESS_TOKEN)).rejects.toThrow();
 });
 
 it('invalid token', async () => {
-  expect(async () => {
-    await getProject(PROJECT_ID, 'invalid');
-  }).not.toThrow();
+  await expect(getFile(PROJECT_ID, 'invalid')).rejects.toThrow();
 });
