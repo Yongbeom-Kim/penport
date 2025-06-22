@@ -1,4 +1,10 @@
 import { program } from "commander";
+import { initCommand } from './scripts/init';
+
+program
+  .command("init")
+  .description("Initialize penport configuration")
+  .action(initCommand);
 
 program
   .command("export")

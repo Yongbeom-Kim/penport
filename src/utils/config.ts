@@ -19,7 +19,9 @@ try {
 }
 
 export interface PenportConfig {
-  projectId: string;
+  teamId: string;
+  fileId: string;
+  pageId: string;
 }
 
 declare global {
@@ -40,10 +42,14 @@ export const getAccessToken = (): string => {
   return token;
 };
 
-export const getProjectId = () => config.projectId;
+export const getFileId = () => config.fileId;
+export const getTeamId = () => config.teamId;
+export const getPageId = () => config.pageId;
 
 export const validateEnvironment = () => {
   // These will throw if not properly configured
   getAccessToken();
-  getProjectId();
+  getFileId();
+  getTeamId();
+  getPageId();
 };  

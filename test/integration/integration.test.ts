@@ -2,7 +2,7 @@ import { parsePenpotFile } from "../../src/parser";
 import { generator } from "../../src/generator/generator";
 import { getFile } from "../../src/api/request";
 import { TailwindGeneratorOptions } from "../../src/types/generator";
-import { getAccessToken, getProjectId, validateEnvironment } from '../../src/utils/config';
+import { getAccessToken, getFileId, validateEnvironment } from '../../src/utils/config';
 
 describe("Integration Tests", () => {
   const defaultTailwindOptions: TailwindGeneratorOptions = {
@@ -81,7 +81,7 @@ describe("Integration Tests", () => {
     });
 
     it("should fetch from API and generate complete tailwind output", async () => {
-      const penpotFile = await getFile(getProjectId(), getAccessToken());
+      const penpotFile = await getFile(getFileId(), getAccessToken());
       
       // Convert API response to the format expected by generator
       const typographies = Object.values(penpotFile.data.typographies);
@@ -106,16 +106,16 @@ describe("Integration Tests", () => {
         metadata: {
           colorCount: colors.length,
           typographyCount: typographies.length,
-          projectId: penpotFile.id
+          fileId: penpotFile.id
         }
       }).toMatchSnapshot();
     });
 
     it("should handle API errors gracefully", async () => {
-      await expect(getFile('invalid-project-id', getAccessToken()))
+      await expect(getFile('invalid-file-id', getAccessToken()))
         .rejects.toThrow();
       
-      await expect(getFile(getProjectId(), 'invalid-token'))
+      await expect(getFile(getFileId(), 'invalid-token'))
         .rejects.toThrow();
     });
   });
@@ -126,7 +126,7 @@ describe("Integration Tests", () => {
     });
 
     it("should fetch from API and generate pure CSS output", async () => {
-      const file = await getFile(getProjectId(), getAccessToken());
+      const file = await getFile(getFileId(), getAccessToken());
       const generatedFiles = generator(
         { 
           typographies: Object.values(file.data.typographies), 

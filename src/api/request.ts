@@ -1,7 +1,7 @@
 import { PenpotFileSchema, type PenpotFile } from "../types/penpot";
 
 export const getFile = async (
-  projectId: string,
+  fileId: string,
   token: string
 ): Promise<PenpotFile> => {
   const response = await fetch(
@@ -14,14 +14,14 @@ export const getFile = async (
         Authorization: `Token ${token}`,
         Accept: "application/json",
       },
-      body: JSON.stringify({ id: projectId }),
+      body: JSON.stringify({ id: fileId }),
     }
   );
 
   if (!response.ok) {
     const errorText = await response.text();
     throw new Error(
-      `Failed to fetch project: ${response.statusText} - ${errorText}`
+      `Failed to fetch file: ${response.statusText} - ${errorText}`
     );
   }
 

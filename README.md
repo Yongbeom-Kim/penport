@@ -27,7 +27,19 @@ pnpm build
 
 ## Configuration
 
-### Environment Setup
+### Quick Setup
+
+Run the initialization command to configure Penport:
+
+```bash
+node index.js init
+```
+
+This will prompt you for:
+- Your Penpot access token
+- Your Penpot file URL (from the browser address bar)
+
+### Manual Setup
 
 1. Create a `.penport-secret` file in the project root:
 ```
@@ -37,13 +49,23 @@ ACCESS_TOKEN=your-penpot-access-token
 2. Configure `penport.config.json`:
 ```json
 {
-  "projectId": "your-penpot-project-id"
+  "teamId": "your-team-id",
+  "fileId": "your-file-id",
+  "pageId": "your-page-id"
 }
 ```
+
+> **Note**: You can find these IDs in your Penpot file URL: `https://design.penpot.app/#/workspace?team-id=...&file-id=...&page-id=...`
 
 ## Usage
 
 ### Command Line Interface
+
+Initialize configuration:
+```bash
+# Set up Penport configuration interactively
+node index.js init
+```
 
 Export themes with various options:
 
@@ -101,6 +123,8 @@ src/
 │   ├── penpot.ts         # Penpot data structures
 │   ├── generator.ts       # Generator options
 │   └── errors.ts         # Custom error types
+├── scripts/               # CLI commands
+│   └── init.ts           # Configuration initialization
 ├── utils/                 # Utilities
 │   └── config.ts         # Configuration management
 └── index.ts              # CLI entry point
@@ -186,9 +210,9 @@ The tool supports fetching themes directly from Penpot projects:
 
 ```typescript
 import { getFile } from './src/api/request';
-import { getAccessToken, getProjectId } from './src/utils/config';
+import { getAccessToken, getFileId } from './src/utils/config';
 
-const penpotData = await getFile(getProjectId(), getAccessToken());
+const penpotData = await getFile(getFileId(), getAccessToken());
 const theme = {
   typographies: Object.values(penpotData.data.typographies),
   colors: Object.values(penpotData.data.colors)

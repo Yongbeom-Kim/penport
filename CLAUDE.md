@@ -30,9 +30,12 @@ A tool to export themes from Penpot design files (.penpot files) and generate CS
 - `index.js` - Compiled output (generated, not tracked in git)
 
 ## Development Workflow
-1. Run `pnpm run check` for type checking
-2. Run `pnpm test` to ensure tests pass
-3. Use `pnpm dev` for development with auto-rebuild
+1. Follow Test-Driven Development when possible.
+   1. After every change,
+   2. Run `pnpm run check` for type checking
+   3. Run `pnpm test` to ensure tests pass
+   4. Inspect all changes, and refactor them to make them neater. Check if there are other parts of the code hiding duplicate logic, or if you should park a script elsewhere.
+   5. Update README.md
 
 ## Additional commands
 - You can use the tree command to see the directory structure (tree . --gitignore).

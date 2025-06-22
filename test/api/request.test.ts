@@ -1,10 +1,10 @@
 import { getFile } from "../../src/api/request";
-import { getAccessToken, getProjectId, validateEnvironment } from '../../src/utils/config';
+import { getAccessToken, getFileId, validateEnvironment } from '../../src/utils/config';
 
 validateEnvironment();
 
 it('should get project', async () => {
-  await getFile(getProjectId(), getAccessToken());
+  await getFile(getFileId(), getAccessToken());
 });
 
 it('project not found', async () => {
@@ -12,5 +12,5 @@ it('project not found', async () => {
 });
 
 it('invalid token', async () => {
-  await expect(getFile(getProjectId(), 'invalid')).rejects.toThrow();
+  await expect(getFile(getFileId(), 'invalid')).rejects.toThrow();
 });
