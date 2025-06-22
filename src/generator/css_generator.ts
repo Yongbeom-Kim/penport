@@ -1,8 +1,8 @@
 import { AssertionError } from "../types/errors";
-import { CSSClass, CSSDeclaration, CSSDeclarationBlock, CSSVariable, EmptyCSSDeclaration, Generator, GeneratorOptions, OutputFile, RootCSSDeclarationBlock } from "../types/generator";
+import { CSSClass, CSSDeclaration, CSSDeclarationBlock, CSSVariable, EmptyCSSDeclaration, PureCSSGeneratorOptions, OutputFile, RootCSSDeclarationBlock } from "../types/generator";
 import { Color, Typography } from "../types/penpot";
 
-export const pureCssGenerator: Generator = (theme, options) => {
+export const pureCssGenerator = (theme: { typographies: Typography[], colors: Color[] }, options: PureCSSGeneratorOptions): OutputFile[] => {
   const { typographies, colors } = theme;
   const files: OutputFile[] = [];
   const typographyBlocks = generateCssTypography(typographies, options);
@@ -32,7 +32,7 @@ const getCssName = (...fullPath: string[]) => {
     .replaceAll(/[^a-z0-9_-]/g, "");
 }
 
-const generateCssTypography = (typographies: Typography[], options: GeneratorOptions): CSSDeclarationBlock[] => {
+const generateCssTypography = (typographies: Typography[], options: PureCSSGeneratorOptions): CSSDeclarationBlock[] => {
   const uniqueFontFamilies = [...new Set(typographies.map((typography) => typography.fontFamily))];
 
   const cssBlocks: CSSDeclarationBlock[] = [];

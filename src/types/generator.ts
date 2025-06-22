@@ -9,13 +9,21 @@ export interface OutputFile {
   contents: string;
 }
 
-export type GeneratorOptions = {
+export type PureCSSGeneratorOptions = {
   cssOutputPath: PathLike;
   outputMode: "pure-css";
   typography: {
     fallbackToSansSerif: boolean; // default: true
   }
 }
+
+export type TailwindGeneratorOptions = {
+  configOutputPath: PathLike;
+  cssOutputPath: PathLike;
+  outputMode: "tailwind";
+}
+
+export type GeneratorOptions = PureCSSGeneratorOptions | TailwindGeneratorOptions;
 
 export type Generator = (data: {
   typographies: Typography[],

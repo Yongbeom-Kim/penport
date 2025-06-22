@@ -34,6 +34,9 @@ A tool to export themes from Penpot design files (.penpot files) and generate CS
 2. Run `pnpm test` to ensure tests pass
 3. Use `pnpm dev` for development with auto-rebuild
 
+## Additional commands
+- You can use the tree command to see the directory structure (tree . --gitignore).
+
 ## IMPORTANT: Testing Requirements
 After every unit of change, we must ensure that `pnpm test` and `pnpm run check` passes.
 

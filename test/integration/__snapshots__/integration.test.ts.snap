@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generate Code from Penpot API should generate code from penpot api 1`] = `
+exports[`Integration Tests API to CSS should fetch from API and generate pure CSS output 1`] = `
 [
   {
     "contents": ":root {
@@ -87,7 +87,59 @@ exports[`generate Code from Penpot API should generate code from penpot api 1`] 
 ]
 `;
 
-exports[`parse Base Test Case penpot file should unzip a penpot file 1`] = `
+exports[`Integration Tests API to Tailwind should fetch from API and generate complete tailwind output 1`] = `
+{
+  "config": "module.exports = {
+  theme: {
+    extend: {
+      colors: {
+    "tailwind-cyan-50": "#ecfeff",
+    "tailwind-indigo-500 a-50": "rgba(99, 102, 241, 0.5)",
+    "#1e2932": "#1e2932"
+      }
+    }
+  }
+};",
+  "css": "@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-source sans 3 14 regular {
+  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Source Sans 3 Bolditalic {
+  @apply text-[1.125rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Source Sans 3 200 {
+  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Stalemate Regular {
+  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Stalemate Regular 24 line spacing {
+  @apply text-[1.5rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Stalemate Regular all caps 24 {
+  @apply text-[2.6875rem] leading-[0.1875rem] font-normal tracking-[0.05581395348837209em] font-sans;
+}
+
+.text-no-group {
+  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}",
+  "metadata": {
+    "colorCount": 3,
+    "projectId": "4ad2a2f5-64b0-80be-8006-4a0c775086b1",
+    "typographyCount": 7,
+  },
+}
+`;
+
+exports[`Integration Tests File to CSS should parse penpot file and generate pure CSS output 1`] = `
 [
   {
     "contents": ":root {
@@ -172,4 +224,55 @@ exports[`parse Base Test Case penpot file should unzip a penpot file 1`] = `
     "path": "test/output.css",
   },
 ]
+`;
+
+exports[`Integration Tests File to Tailwind should parse penpot file and generate complete tailwind output 1`] = `
+{
+  "config": "module.exports = {
+  theme: {
+    extend: {
+      colors: {
+    "tailwind-cyan-50": "#ecfeff",
+    "tailwind-indigo-500 a-50": "rgba(99, 102, 241, 0.5)",
+    "#1e2932": "#1e2932"
+      }
+    }
+  }
+};",
+  "css": "@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-source sans 3 14 regular {
+  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Source Sans 3 Bolditalic {
+  @apply text-[1.125rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Source Sans 3 200 {
+  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Stalemate Regular {
+  @apply text-[0.625rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Stalemate Regular 24 line spacing {
+  @apply text-[1.5rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}
+
+.text-Stalemate Regular all caps 24 {
+  @apply text-[2.6875rem] leading-[0.1875rem] font-normal tracking-[0.05581395348837209em] font-sans;
+}
+
+.text-no-group {
+  @apply text-[0.875rem] leading-[0.075rem] font-normal tracking-[0em] font-sans;
+}",
+  "metadata": {
+    "colorCount": 3,
+    "typographyCount": 7,
+  },
+}
 `;

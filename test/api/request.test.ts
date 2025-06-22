@@ -9,18 +9,21 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       ACCESS_TOKEN: string;
+      PROJECT_ID: string;
     }
   }
 }
-
-const PROJECT_ID = '4ad2a2f5-64b0-80be-8006-4a0c775086b1';
 
 if (!process.env.ACCESS_TOKEN) {
   throw new Error('ACCESS_TOKEN is not set');
 }
 
+if (!process.env.PROJECT_ID) {
+  throw new Error('PROJECT_ID is not set');
+}
+
 it('should get project', async () => {
-  await getFile(PROJECT_ID, process.env.ACCESS_TOKEN);
+  await getFile(process.env.PROJECT_ID, process.env.ACCESS_TOKEN);
 });
 
 it('project not found', async () => {
@@ -28,5 +31,5 @@ it('project not found', async () => {
 });
 
 it('invalid token', async () => {
-  await expect(getFile(PROJECT_ID, 'invalid')).rejects.toThrow();
+  await expect(getFile(process.env.PROJECT_ID, 'invalid')).rejects.toThrow();
 });
