@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import dotenv from 'dotenv';
 
@@ -7,15 +7,17 @@ dotenv.config({
   path: '.penport-secret'
 });
 
-// Load config on import
+// Load config on import - but handle missing files gracefully
 const configPath = join(process.cwd(), 'penport.config.json');
-let config: PenportConfig;
+let config: PenportConfig | null = null;
 
 try {
-  const configContent = readFileSync(configPath, 'utf-8');
-  config = JSON.parse(configContent);
+  if (existsSync(configPath)) {
+    const configContent = readFileSync(configPath, 'utf-8');
+    config = JSON.parse(configContent);
+  }
 } catch (error) {
-  throw new Error(`Failed to load penport.config.json: ${error}`);
+  // Config will remain null if there's an error
 }
 
 export interface PenportConfig {
@@ -32,21 +34,53 @@ declare global {
   }
 }
 
-export const loadConfig = (): PenportConfig => config;
+export const loadConfig = (): PenportConfig => {
+  if (!config) {
+    throw new Error('Configuration not loaded - run "penport init" first');
+  }
+  return config;
+};
 
 export const getAccessToken = (): string => {
   const token = process.env.ACCESS_TOKEN;
   if (!token) {
-    throw new Error('ACCESS_TOKEN is not set - add it to .penport-secret file');
+    throw new Error('ACCESS_TOKEN is not set - add it to .penport-secret file or run "penport init"');
   }
   return token;
 };
 
-export const getFileId = () => config.fileId;
-export const getTeamId = () => config.teamId;
-export const getPageId = () => config.pageId;
+export const getFileId = () => {
+  if (!config) {
+    throw new Error('Configuration not loaded - run "penport init" first');
+  }
+  return config.fileId;
+};
+
+export const getTeamId = () => {
+  if (!config) {
+    throw new Error('Configuration not loaded - run "penport init" first');
+  }
+  return config.teamId;
+};
+
+export const getPageId = () => {
+  if (!config) {
+    throw new Error('Configuration not loaded - run "penport init" first');
+  }
+  return config.pageId;
+};
 
 export const validateEnvironment = () => {
+  // Check if config files exist
+  const secretPath = join(process.cwd(), '.penport-secret');
+  if (!existsSync(secretPath)) {
+    throw new Error('Configuration file .penport-secret not found - run "penport init" first');
+  }
+  
+  if (!existsSync(configPath)) {
+    throw new Error('Configuration file penport.config.json not found - run "penport init" first');
+  }
+  
   // These will throw if not properly configured
   getAccessToken();
   getFileId();

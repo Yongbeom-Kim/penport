@@ -64,44 +64,21 @@ ACCESS_TOKEN=your-penpot-access-token
 Initialize configuration:
 ```bash
 # Set up Penport configuration interactively
-node index.js init
+penport init
 ```
 
 Export themes with various options:
 
 ```bash
 # Export as CSS (default)
-node index.js export
+penport export
 
 # Export as Tailwind CSS
-node index.js export --format tailwind
+penport export --format tailwind
 
 # Custom output paths
-node index.js export --format css --css-output custom-styles.css
-node index.js export --format tailwind --config-output custom.tailwind.config.js --css-output styles.css
-```
-
-### Programmatic Usage
-
-```typescript
-import { parsePenpotFile } from './src/parser';
-import { generator } from './src/generator/generator';
-
-// Parse local .penpot file
-const theme = parsePenpotFile('./design.penpot');
-
-// Generate CSS
-const cssFiles = generator(theme, {
-  outputMode: 'pure-css',
-  cssOutputPath: 'styles.css'
-});
-
-// Generate Tailwind CSS
-const tailwindFiles = generator(theme, {
-  outputMode: 'tailwind',
-  configOutputPath: 'tailwind.config.js',
-  cssOutputPath: 'typography.css'
-});
+penport export --format css --css-output custom-styles.css
+penport export --format tailwind --config-output custom.tailwind.config.js --css-output styles.css
 ```
 
 ## Project Structure
