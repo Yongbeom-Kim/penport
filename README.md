@@ -1,225 +1,125 @@
-# Penport - Penpot Theme Exporter
+# Penport - Automated Design Token Export
 
-A TypeScript CLI tool for exporting design themes from Penpot design files (.penpot) and generating CSS/Tailwind CSS configurations.
+**Transform Penpot designs into production-ready CSS and Tailwind configurations.**
 
-## Features
-
-- **Multiple Export Formats**: Generate pure CSS or Tailwind CSS configurations
-- **Local File Support**: Parse local .penpot files directly
-- **API Integration**: Fetch themes directly from Penpot projects via API
-- **Typography & Colors**: Extract and export typography styles and color palettes
-- **TypeScript**: Fully typed with strict TypeScript configuration
-- **Comprehensive Testing**: Unit and integration tests with snapshot testing
-
-## Installation
+Penport eliminates manual design token management by automatically extracting typography and color systems from Penpot files and generating clean, consistent CSS or Tailwind configurations.
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd penpot-theme-exporter
+penport export --format tailwind
+# Generates complete Tailwind config from your Penpot design system
+```
 
-# Install dependencies
-pnpm install
+## Why Penport?
 
-# Build the project
-pnpm build
+There is no real easy way to extract your design tokens from Penpot. Design systems drift out of sync, leading to inconsistencies and wasted developer time. There is [penpot-export](https://github.com/penpot/penpot-export), but it just takes so much set up, I don't understand it. Tool should be as easy as possible. 
+
+
+Penport automates the entire process, ensuring your codebase always reflects your latest design decisions. Note that if your colors and/or typographies are not saved as assets, this tool will not extract them for you.
+
+### Key Benefits
+
+- **Automated Extraction** - Pull design tokens with a single command
+- **Perfect Synchronization** - CSS automatically matches your designs  
+- **Multiple Output Formats** - Generate pure CSS or Tailwind configurations
+- **API Integration** - Works with local files or live Penpot projects
+
+## Quick Start
+
+```bash
+# Installation
+npm install --save-dev penport
+
+# Configuration
+penport init
+# Follow the prompts to configure your Penpot connection
+
+# Export your design tokens
+penport export
+# Generates CSS file with your design system
 ```
 
 ## Configuration
 
-### Quick Setup
-
-Run the initialization command to configure Penport:
-
 ```bash
-node index.js init
-```
-
-This will prompt you for:
-- Your Penpot access token
-- Your Penpot file URL (from the browser address bar)
-
-### Manual Setup
-
-1. Create a `.penport-secret` file in the project root:
-```
-ACCESS_TOKEN=your-penpot-access-token
-```
-
-2. Configure `penport.config.json`:
-```json
-{
-  "teamId": "your-team-id",
-  "fileId": "your-file-id",
-  "pageId": "your-page-id"
-}
-```
-
-> **Note**: You can find these IDs in your Penpot file URL: `https://design.penpot.app/#/workspace?team-id=...&file-id=...&page-id=...`
-
-## Usage
-
-### Command Line Interface
-
-Initialize configuration:
-```bash
-# Set up Penport configuration interactively
 penport init
 ```
 
-Export themes with various options:
+This command guides you through configuration by prompting for your Penpot file URL and access token.
+
+
+## Usage
+
+### Export Commands
 
 ```bash
-# Export as CSS (default)
+# Standard CSS output
 penport export
+# Generates CSS custom properties and utility classes
 
-# Export as Tailwind CSS
-penport export --format tailwind
+# Tailwind CSS configuration
+penport export --format tailwind  
+# Creates tailwind.config.js and utility CSS
 
 # Custom output paths
-penport export --format css --css-output custom-styles.css
-penport export --format tailwind --config-output custom.tailwind.config.js --css-output styles.css
+penport export --format tailwind \
+  --config-output my-theme.config.js \
+  --css-output my-styles.css
 ```
 
-## Project Structure
+### Processing Pipeline
 
-```
-src/
-├── api/                    # API integration for Penpot
-│   └── request.ts         # HTTP requests to Penpot API
-├── generator/             # Theme generation
-│   ├── css_generator.ts   # Pure CSS output generator
-│   ├── tailwind_generator.ts # Tailwind CSS generator
-│   ├── generator.ts       # Main generator logic
-│   └── utils.ts          # Shared generator utilities
-├── parser/                # .penpot file parsing
-│   ├── file_parser.ts     # ZIP file handling
-│   ├── data_parser.ts     # JSON data parsing
-│   └── parser.ts          # Main parsing logic
-├── types/                 # TypeScript definitions
-│   ├── penpot.ts         # Penpot data structures
-│   ├── generator.ts       # Generator options
-│   └── errors.ts         # Custom error types
-├── scripts/               # CLI commands
-│   └── init.ts           # Configuration initialization
-├── utils/                 # Utilities
-│   └── config.ts         # Configuration management
-└── index.ts              # CLI entry point
-```
+1. **Connect** - Fetches your latest Penpot design data
+2. **Extract** - Parses typography and color token definitions  
+3. **Transform** - Converts tokens to CSS or Tailwind format
+4. **Generate** - Outputs production-ready files
 
-## Development
+## Output Examples
 
-### Available Scripts
-
-- `pnpm test` - Run all tests
-- `pnpm test:watch` - Run tests in watch mode
-- `pnpm build` - Build the project
-- `pnpm dev` - Build in watch mode
-- `pnpm run check` - TypeScript type checking
-- `pnpm run export` - Run the export command
-
-### Development Workflow
-
-1. **Type Checking**: Always run `pnpm run check` before committing
-2. **Testing**: Ensure `pnpm test` passes after changes
-3. **Watch Mode**: Use `pnpm dev` for development with auto-rebuild
-
-### Testing
-
-The project includes comprehensive testing:
-
-- **Unit Tests**: Individual component testing
-- **Integration Tests**: End-to-end workflow testing
-- **Snapshot Tests**: Output consistency verification
-- **API Tests**: Penpot API integration testing
-
-```bash
-# Run all tests
-pnpm test
-
-# Run tests with coverage
-pnpm test -- --coverage
-
-# Run specific test file
-pnpm test -- parser.test.ts
-```
-
-## Output Formats
-
-### Pure CSS
-Generates standard CSS custom properties and utility classes:
-
+### CSS Output
 ```css
+/* ✨ Generated automatically from your Penpot file */
 :root {
   --color-primary: #3b82f6;
+  --color-primary-50: rgba(59, 130, 246, 0.05);
   --typography-heading-font-family: 'Inter';
   --typography-heading-font-size: 2rem;
+  --typography-heading-font-weight: 700;
+  --typography-heading-line-height: 1.2;
 }
 
 .typography-heading {
   font-family: var(--typography-heading-font-family);
   font-size: var(--typography-heading-font-size);
+  font-weight: var(--typography-heading-font-weight);
+  line-height: var(--typography-heading-line-height);
 }
 ```
 
-### Tailwind CSS
-Generates Tailwind configuration and utility CSS:
-
+### Or Tailwind
 ```javascript
-// tailwind.config.js
+// tailwind.config.js - Perfect for your workflow
 module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#3b82f6'
+        primary: {
+          DEFAULT: '#3b82f6',
+          50: 'rgba(59, 130, 246, 0.05)'
+        }
       },
       fontFamily: {
-        heading: ['Inter']
+        heading: ['Inter', 'sans-serif']
+      },
+      fontSize: {
+        'heading': ['2rem', { lineHeight: '1.2', fontWeight: '700' }]
       }
     }
   }
 }
 ```
 
-## API Integration
+## ⚙️ Requirements
 
-The tool supports fetching themes directly from Penpot projects:
-
-```typescript
-import { getFile } from './src/api/request';
-import { getAccessToken, getFileId } from './src/utils/config';
-
-const penpotData = await getFile(getFileId(), getAccessToken());
-const theme = {
-  typographies: Object.values(penpotData.data.typographies),
-  colors: Object.values(penpotData.data.colors)
-};
-```
-
-## Error Handling
-
-The tool includes comprehensive error handling for:
-- Invalid .penpot file formats
-- Missing configuration files
-- API authentication failures
-- Invalid output paths
-- Malformed theme data
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `pnpm run check` and `pnpm test`
-5. Commit with descriptive messages (one-line format)
-6. Submit a pull request
-
-## Requirements
-
-- Node.js 16+
-- pnpm 10.12.1+
-- TypeScript 5.8+
-
-## License
-
-ISC License
+- **Node.js 16+** - Modern JavaScript runtime
+- **pnpm 10.12.1+** - Fast, disk-efficient package manager  
+- **TypeScript 5.8+** - For that sweet, sweet type safety
