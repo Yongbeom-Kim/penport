@@ -1,5 +1,7 @@
 # Penport - Automated Design Token Export
 
+[![npm version](https://badge.fury.io/js/penport.svg)](https://www.npmjs.com/package/penport)
+
 **Transform Penpot designs into production-ready CSS and Tailwind configurations.**
 
 Penport eliminates manual design token management by automatically extracting typography and color systems from Penpot files and generating clean, consistent CSS or Tailwind configurations.
